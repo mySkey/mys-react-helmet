@@ -62,7 +62,7 @@ const getAttributesFromPropsList = (tagType, propsList) => {
         .filter(props => typeof props[tagType] !== "undefined")
         .map(props => props[tagType])
         .reduce((tagAttrs, current) => {
-            return {...tagAttrs, ...current};
+            return { ...tagAttrs, ...current };
         }, {});
 };
 
@@ -348,7 +348,7 @@ const commitTagChanges = (newState, cb) => {
     const removedTags = {};
 
     Object.keys(tagUpdates).forEach(tagType => {
-        const {newTags, oldTags} = tagUpdates[tagType];
+        const { newTags, oldTags } = tagUpdates[tagType];
 
         if (newTags.length) {
             addedTags[tagType] = newTags;
@@ -457,7 +457,7 @@ const updateTags = (type, tags) => {
                 }
             }
 
-            newElement.setAttribute(HELMET_ATTRIBUTE, "true");
+            // newElement.setAttribute(HELMET_ATTRIBUTE, "true");
 
             // Remove a duplicate tag from domTagstoRemove, so it isn't cleared.
             if (
@@ -495,11 +495,11 @@ const generateTitleAsString = (type, title, attributes, encode) => {
     const attributeString = generateElementAttributesAsString(attributes);
     const flattenedTitle = flattenArray(title);
     return attributeString
-        ? `<${type} ${HELMET_ATTRIBUTE}="true" ${attributeString}>${encodeSpecialCharacters(
+        ? `<${type} ${attributeString}>${encodeSpecialCharacters(
               flattenedTitle,
               encode
           )}</${type}>`
-        : `<${type} ${HELMET_ATTRIBUTE}="true">${encodeSpecialCharacters(
+        : `<${type}>${encodeSpecialCharacters(
               flattenedTitle,
               encode
           )}</${type}>`;
@@ -530,7 +530,7 @@ const generateTagsAsString = (type, tags, encode) =>
 
         const isSelfClosing = SELF_CLOSING_TAGS.indexOf(type) === -1;
 
-        return `${str}<${type} ${HELMET_ATTRIBUTE}="true" ${attributeHtml}${
+        return `${str}<${type} ${attributeHtml}${
             isSelfClosing ? `/>` : `>${tagContent}</${type}>`
         }`;
     }, "");
@@ -552,8 +552,7 @@ const convertReactPropstoHtmlAttributes = (props, initAttributes = {}) => {
 const generateTitleAsReactComponent = (type, title, attributes) => {
     // assigning into an array to define toString function on it
     const initProps = {
-        key: title,
-        [HELMET_ATTRIBUTE]: true
+        key: title
     };
     const props = convertElementAttributestoReactProps(attributes, initProps);
 
@@ -563,8 +562,7 @@ const generateTitleAsReactComponent = (type, title, attributes) => {
 const generateTagsAsReactComponent = (type, tags) =>
     tags.map((tag, i) => {
         const mappedTag = {
-            key: i,
-            [HELMET_ATTRIBUTE]: true
+            key: i
         };
 
         Object.keys(tag).forEach(attribute => {
@@ -575,7 +573,7 @@ const generateTagsAsReactComponent = (type, tags) =>
                 mappedAttribute === TAG_PROPERTIES.CSS_TEXT
             ) {
                 const content = tag.innerHTML || tag.cssText;
-                mappedTag.dangerouslySetInnerHTML = {__html: content};
+                mappedTag.dangerouslySetInnerHTML = { __html: content };
             } else {
                 mappedTag[mappedAttribute] = tag[attribute];
             }
@@ -646,12 +644,12 @@ const mapStateOnServer = ({
     noscript: getMethodsForTag(TAG_NAMES.NOSCRIPT, noscriptTags, encode),
     script: getMethodsForTag(TAG_NAMES.SCRIPT, scriptTags, encode),
     style: getMethodsForTag(TAG_NAMES.STYLE, styleTags, encode),
-    title: getMethodsForTag(TAG_NAMES.TITLE, {title, titleAttributes}, encode)
+    title: getMethodsForTag(TAG_NAMES.TITLE, { title, titleAttributes }, encode)
 });
 
-export {convertReactPropstoHtmlAttributes};
-export {handleClientStateChange};
-export {mapStateOnServer};
-export {reducePropsToState};
-export {requestAnimationFrame};
-export {warn};
+export { convertReactPropstoHtmlAttributes };
+export { handleClientStateChange };
+export { mapStateOnServer };
+export { reducePropsToState };
+export { requestAnimationFrame };
+export { warn };

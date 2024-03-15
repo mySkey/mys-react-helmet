@@ -1,10 +1,10 @@
 {
-  "name": "react-helmet",
+  "name": "mys-react-helmet",
   "description": "A document head manager for React",
   "version": "6.1.0",
   "main": "./lib/Helmet.js",
   "module": "./es/Helmet.js",
-  "author": "NFL <engineers@nfl.com>",
+  "author": "mySkey <476168710@qq.com>",
   "contributors": [
     "Chris Welch <chris.welch@nfl.com>",
     "Robert dela Victoria <robert.delavictoria@nfl.com>"
